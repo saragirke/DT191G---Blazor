@@ -1,0 +1,47 @@
+﻿@page "/convert"
+@inject HttpClient Http
+
+<h2>Konvertering</h2>
+
+<h3>Omvandla meter till fot:</h3>
+<!-- Fomrulär med bind-->
+<label for="meter">Ange meter:</label>
+<input type="number" class="meter" @bind="m"/>
+<button @onclick="FtoM">Omvandla</button>
+
+
+@code {
+    private double f;
+    private double m;
+    //Uträkning med Round, en decimal
+    private void FtoM()
+    {
+        f = Math.Round(m * 3.280839895, 1);
+    }
+
+}
+<h4>Resultat:</h4>
+<p>@m meter = @f fot</p>
+
+<h3>Omvandla kilometer till miles</h3>
+
+<!-- Fomrulär med bind-->
+<label for="km">Ange kilometer:</label>
+<input type="number" class="km" @bind="km" />
+<button @onclick="KmtoM">Omvandla</button>
+
+
+@code {
+    //Variabler
+    private double km;
+    private double mile;
+    //Uträkning med Round
+    private void KmtoM()
+    {
+        mile = Math.Round(km * 0.62137119);
+    }
+
+}
+<h4>Resultat:</h4>
+<p>@km kilometer = @mile miles</p>
+

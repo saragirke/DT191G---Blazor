@@ -1,0 +1,51 @@
+﻿@page "/json"
+@inject HttpClient Http
+
+<h2>Kurser</h2>
+
+
+        @if (schedule == null) {
+           <p>Laddar..</p>
+        }
+        else {
+       <table>
+            <thead>
+                <tr>
+                     <th>Kurskod</th>
+                     <th>Kursnamn</th>
+                      <th>Progression</th>
+                </tr>
+            </thead>
+
+    <tbody>
+        @foreach (var course in schedule)
+        {
+            <tr>
+                <td>@course.code</td>
+                <td>@course.name</td>
+                <td>@course.progression</td>
+            </tr>
+        }
+    </tbody>
+</table>
+        }
+
+
+@code {
+
+    private Schedule[]? schedule;
+
+    protected override async Task OnInitializedAsync()
+    {
+        schedule = await Http.GetFromJsonAsync<Schedule[]>("Json/courses.json");
+    }
+
+    //Modell
+    public class Schedule
+    {
+        public string? code { get; set; }
+        public string? name { get; set; }
+        public string? progression { get; set; }
+    }
+
+}
